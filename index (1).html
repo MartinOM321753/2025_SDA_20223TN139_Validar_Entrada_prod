@@ -37,7 +37,7 @@
                 <div class="col-md-6">
                     <label for="rfc" class="form-label">RFC</label>
                     <input type="text" class="form-control text-uppercase" id="rfc"
-                        pattern="^[A-ZÑ&]{3}\d{6}[A-Z0-9]{3}$" minlength="12" maxlength="12"
+                        pattern="^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$" minlength="12" maxlength="12"
                         title="Ingresa los 12 caracateres del RFC">
                     <small id="rfc_error" style='display: none; color: red;' class=" mx-1"></small>
 
@@ -124,7 +124,7 @@
             const btn = document.getElementById('envio');
             const pattern_razon = /^[a-zA-Z0-9áéíóúÁÉÍÓÚ$!¡#%&\.\s]{3,256}$/;
 
-            const pattern_rfc = /^[A-ZÑ&]{3}\d{6}[A-Z0-9]{3}$/;
+            const pattern_rfc = /^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/;
             const pattern_contacto = /^[a-zA-ZáéíóúÁÉÍÓÚ\s]{3,256}$/;
             const pattern_email = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 

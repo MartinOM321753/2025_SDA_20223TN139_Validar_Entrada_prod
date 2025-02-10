@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/19.5.3/js/intlTelInput.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/19.5.3/css/intlTelInput.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <title>Document</title>
+</head>
+
+<body class="d-flex justify-content-center items-center mb-5">
+
+
+    <div class="card mt-5 col-5">
+        <div class="card-body">
+            <h5 class="card-title text-center">Registro de empresa</h5>
+
+            <form id="form" class="row g-3">
+
+                <div class="col-12">
+                    <label for="razon" class="form-label">Razon Social</label>
+                    <input type="text" class="form-control" id="razon" placeholder="Ejemplo S.A. de C.V."
+                        pattern="^[a-zA-Z0-9áéíóúÁÉÍÓÚ$!¡#%&\s$" maxlength="256" minlength="3">
+                    <small id="razon_error" style='display: none; color: red;' class=" mx-1"></small>
+
+                </div>
+
+                <div class="col-md-6">
+                    <label for="rfc" class="form-label">RFC</label>
+                    <input type="text" class="form-control text-uppercase" id="rfc"
+                        pattern="^[A-ZÑ&]{3}\d{6}[A-Z0-9]{3}$" minlength="12" maxlength="12"
+                        title="Ingresa los 12 caracateres del RFC">
+                    <small id="rfc_error" style='display: none; color: red;' class=" mx-1"></small>
+
+                </div>
+
+                <div class="col-md-6">
+                    <label for="phone" class="form-label">Telefono</label>
+                    <input type="tel" id="phone" class="form-control" pattern="^\d{10}$" minlength="10" maxlength="10">
+                    <small id="telefono_error" style='display: none; color: red;' class=" mx-1"></small>
+
+                </div>
+
+                <div class="col-12">
+                    <label for="contacto" class="form-label">Contacto</label>
+                    <input type="text" class="form-control" id="contacto"
+                        placeholder="Ingrese el nombre de la persona de contacto" pattern="^[a-zA-Z\s]+$" minlength="3"
+                        maxlength="70">
+                    <small class="text-muted mx-1">Solo se permiten letras</small>
+                    <small id="contacto_error" style='display: none; color: red;' class=" mx-1"></small>
+
+
+                </div>
+                <div class="col-md-12">
+                    <label for="email" class="form-label">Correo</label>
+                    <input type="email" class="form-control" id="email" placeholder="Ingrese un correo"
+                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                    <small id="email_error" style='display: none; color: red;' class=" mx-1"></small>
+
+
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" id="envio" class="btn btn-primary" disabled>Enviar</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+
+    <script>
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const input = document.querySelector("#phone");
+            window.intlTelInput(input, {
+                initialCountry: "us",
+                loadUtils: () => import("/intl-tel-input/js/utils.js?1733756310855")
+            });
+
+            document.querySelectorAll('input').forEach(input => {
+                input.addEventListener('input', validate)
+            });
+
+            const form = document.getElementById('form');
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault()
+                Swal.fire({
+                    'title': '!Rgistrado¡',
+                    'text': 'El registro se realizo con exlito',
+                    'icon': 'success',
+                    'draggable': true
+                }).then(() => {
+                    form.submit(); 
+                });
+            });
+
+            validate(); 
+        });
+        function validate() {
+            const razon = document.getElementById('razon').value;
+            const rfc = document.getElementById('rfc').value;
+            const phone = document.getElementById('phone').value;
+            const contacto = document.getElementById('contacto').value;
+            const email = document.getElementById('email').value;
+            const razon_error = document.getElementById('razon_error');
+            const rfc_error = document.getElementById('rfc_error');
+            const phone_error = document.getElementById('telefono_error');
+            const contacto_error = document.getElementById('contacto_error');
+            const email_error = document.getElementById('email_error');
+            const telefono_error = document.getElementById('telefono_error');
+
+            const btn = document.getElementById('envio');
+            const pattern_razon = /^[a-zA-Z0-9áéíóúÁÉÍÓÚ$!¡#%&\s]{3,256}$/;
+
+            const pattern_rfc = /^[A-ZÑ&]{3}\d{6}[A-Z0-9]{3}$/;
+            const pattern_contacto = /^[a-zA-ZáéíóúÁÉÍÓÚ\s]{3,256}$/;
+            const pattern_email = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            if (!pattern_razon.test(razon) && razon.length > 0) {
+                razon_error.style.display = "block";
+                razon_error.innerText = "La razón social debe tener entre 3 y 256 caracteres y solo se permiten letras, números y algunos caracteres especiales";
+            } else {
+                razon_error.style.display = "none";
+                razon_error.innerText = "";
+
+            }
+
+            if (!pattern_rfc.test(rfc) && rfc.length >= 1) {
+                rfc_error.style.display = "block";
+                rfc_error.innerText = "El RFC debe tener 12 caracteres y seguir el formato adecuado.";
+
+            } else {
+                rfc_error.style.display = "none";
+                rfc_error.innerText = "";
+
+            }
+
+            if (!pattern_contacto.test(contacto) && contacto.length >= 1) {
+                contacto_error.style.display = "block";
+                contacto_error.innerText = "El contacto solo puede contener letras y espacios.";
+            } else {
+                contacto_error.style.display = "none";
+                contacto_error.innerText = "";
+
+            }
+
+            if (!pattern_email.test(email) && email.length >= 1) {
+                email_error.style.display = "block";
+                email_error.innerText = "Ingrese un correo válido.";
+            } else {
+                email_error.style.display = "none";
+                email_error.innerText = "";
+
+            }
+
+            if (phone.length < 10 && phone.length > 1) {
+                telefono_error.style.display = 'block';
+                telefono_error.innerText = 'Ingrese un número de 10 dígitos.';
+            } else {
+                telefono_error.style.display = "none";
+                telefono_error.innerText = "";
+
+            }
+
+            if (pattern_razon.test(razon) && pattern_rfc.test(rfc) &&
+                pattern_contacto.test(contacto) && pattern_email.test(email)) {
+                btn.disabled = false;
+            } else {
+                btn.disabled = true;
+            }
+
+
+        }
+
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>

@@ -29,7 +29,7 @@
                 <div class="col-12">
                     <label for="razon" class="form-label">Razon Social</label>
                     <input type="text" class="form-control" id="razon" placeholder="Ejemplo S.A. de C.V."
-                        pattern="^[a-zA-Z0-9áéíóúÁÉÍÓÚ$!¡#%&\s$" maxlength="256" minlength="3">
+                        pattern="^[a-zA-Z0-9áéíóúÁÉÍÓÚ$!¡#%&\.\s$" maxlength="256" minlength="3">
                     <small id="razon_error" style='display: none; color: red;' class=" mx-1"></small>
 
                 </div>
@@ -122,7 +122,7 @@
             const telefono_error = document.getElementById('telefono_error');
 
             const btn = document.getElementById('envio');
-            const pattern_razon = /^[a-zA-Z0-9áéíóúÁÉÍÓÚ$!¡#%&\s]{3,256}$/;
+            const pattern_razon = /^[a-zA-Z0-9áéíóúÁÉÍÓÚ$!¡#%&\.\s]{3,256}$/;
 
             const pattern_rfc = /^[A-ZÑ&]{3}\d{6}[A-Z0-9]{3}$/;
             const pattern_contacto = /^[a-zA-ZáéíóúÁÉÍÓÚ\s]{3,256}$/;
